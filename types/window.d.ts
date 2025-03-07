@@ -6,8 +6,10 @@ interface Window {
       request: (args: { method: string; params?: any[] }) => Promise<any>;
     };
     solana?: {
-      isPhantom?: boolean;
-      connect: () => Promise<{ publicKey: { toString: () => string } }>;
-      disconnect: () => Promise<void>;
-    };
+        isPhantom?: boolean;
+        connect: (params: { onlyIfTrusted: boolean }) => Promise<{
+          publicKey: { toString: () => string }
+        }>;
+        disconnect: () => Promise<void>;
+      };
   }

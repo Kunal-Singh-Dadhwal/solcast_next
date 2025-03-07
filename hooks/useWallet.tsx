@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react'
 export function useWallet() {
   const [isConnected, setIsConnected] = useState(false)
   const [account, setAccount] = useState<string | null>(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false) 
   const [walletType, setWalletType] = useState<string | null>(null)
 
   const connectWallet = useCallback(async (type: string) => {
@@ -11,8 +11,8 @@ export function useWallet() {
       switch (type) {
         case 'metamask':
           if (typeof window.ethereum !== 'undefined') {
-            const accounts = await window.ethereum.request({ 
-              method: 'eth_requestAccounts' 
+            const accounts = await window.ethereum.request({
+              method: 'eth_requestAccounts'
             })
             setAccount(accounts[0])
             setIsConnected(true)
@@ -22,20 +22,36 @@ export function useWallet() {
           }
           break;
 
-        case 'phantom':
-          if (!window.solana?.isPhantom) {
-            window.open('https://phantom.app/', '_blank')
-            return
-          }
-          try {
-            const response = await window.solana.connect()
-            setAccount(response.publicKey.toString())
-            setIsConnected(true)
-            setWalletType('phantom')
-          } catch (err) {
-            console.error('User rejected the connection request')
-          }
-          break;
+          case 'phantom':
+            console.log('Solana object:', window.solana); 
+            console.log('Attempting Phantom connection...');
+            
+            if (!('solana' in window)) {
+              console.log('Phantom wallet not found');
+              window.open('https://phantom.app/', '_blank');
+              return;
+            }
+          
+            try {
+              const provider = window.solana;
+              
+              if (!provider.isPhantom) {
+                console.log('Not a Phantom wallet');
+                window.open('https://phantom.app/', '_blank');
+                return;
+              }
+          
+              console.log('Requesting connection...');
+              const resp = await provider.connect({ onlyIfTrusted: false });
+              console.log('Connection response:', resp);
+              
+              setAccount(resp.publicKey.toString());
+              setIsConnected(true);
+              setWalletType('phantom');
+            } catch (err) {
+              console.error('Detailed connection error:', err);
+            }
+            break;
 
         case 'trust':
           try {
@@ -47,7 +63,7 @@ export function useWallet() {
               setIsConnected(true)
               setWalletType('trust')
             } else {
-              window.open('https://trustwallet.com/download', '_blank')
+              window.open('https://trustwallet.com/browser-extension', '_blank')
             }
           } catch (err) {
             console.error('Trust Wallet connection error:', err)
@@ -64,7 +80,7 @@ export function useWallet() {
               setIsConnected(true)
               setWalletType('coinbase')
             } else {
-              window.open('https://www.coinbase.com/wallet', '_blank')
+              window.open('https://www.coinbase.com/wallet/downloads', '_blank')
             }
           } catch (err) {
             console.error('Coinbase Wallet connection error:', err)
