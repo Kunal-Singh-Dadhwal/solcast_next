@@ -87,9 +87,6 @@ export default function HomePage() {
           </div>
 
           <div className="flex items-center gap-4">
-            <Button variant="outline" asChild>
-              <Link href="/login">Sign In</Link>
-            </Button>
             <Button asChild>
               <Link href="/subscriptions">Subscribe</Link>
             </Button>
