@@ -19,11 +19,11 @@ const wallets = [
     icon: "/phantom.svg",
     id: "phantom"
   },
-  {
+ /* {
     name: "WalletConnect",
     icon: "/walletconnect.svg",
     id: "walletconnect"
-  },
+  },*/
   {
     name: "Coinbase Wallet",
     icon: "/coinbase.svg",
