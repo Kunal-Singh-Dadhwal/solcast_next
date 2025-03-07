@@ -37,7 +37,7 @@ export default function Contract() {
       return true;
     }
   
-    const deleteContent = async (address0: string, hash: string) => {
+    const deleteContent = async (address: string, hash: string) => {
       // Simulating a successful content deletion
       console.log(`Content ${hash} deleted for address ${address}`);
       return true;
