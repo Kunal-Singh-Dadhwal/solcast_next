@@ -19,6 +19,9 @@ export default function VideoPlayer({ videoId }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const playerRef = useRef<HTMLDivElement>(null)
 
+  const resolve = () => {
+    return ;
+  }
   // Format time in MM:SS
   const formatTime = (time: number) => {
     const minutes = Math.floor(time / 60)
