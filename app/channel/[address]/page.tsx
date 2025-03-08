@@ -1,4 +1,5 @@
 import Image from "next/image"
+import { Contract } from "@/components/contract"
 import { Button } from "@/components/ui/button"
 import {
   Bell,
@@ -13,7 +14,8 @@ import {
   Search,
 } from "lucide-react"
 
-export default function CreatorProfile() {
+
+export default function CreatorProfile(address: string) {
   return (
     <div className="flex flex-col w-full">
       {/* Enhanced Header with Navigation */}
