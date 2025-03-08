@@ -1,4 +1,4 @@
-export function Contract() {
+export default function Contract() {
     const getSubscriptions = async (address: string) => {
       const addrs = ["0x1234abcd", "0x5678efgh", "0xabcd1234"];
       return addrs;
